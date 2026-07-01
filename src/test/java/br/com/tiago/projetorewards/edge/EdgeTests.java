@@ -4,8 +4,11 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+
+import java.time.Duration;
 
 @DisplayName("Teste Automatizados do Navegador Microsoft Edge")
 public class EdgeTests {
@@ -16,12 +19,19 @@ public class EdgeTests {
 
         WebDriverManager.edgedriver().setup();
         WebDriver navegador = new EdgeDriver();
+        navegador.manage().timeouts().implicitlyWait(Duration.ofSeconds(6));
 
-        navegador.get("https://www.bing.com/search?qs=AS&pq=google&sk=CSYN1UAS9AS10&sc=23-6&pglt=43&q=google&cvid=109a5bfdb29947da86b646804ac415e1&gs_lcrp=EgRlZGdlKgYIABAAGEAyBggAEAAYQDIGCAEQLhhAMgYIAhAuGEAyBggDEAUYQDIGCAQQBRhAMgYIBRAFGEAyBggGEAUYQDIGCAcQBRhAMgYICBAFGEDSAQgxODg4ajBqN6gCALACAA&FORM=ANNTA1&PC=U531");
+        navegador.get("https://www.google.com/");
 
-        navegador.findElement(By.id("sb_form_q")).click();
+        try{
+            navegador.findElements(By.className("gb_1"));
+            System.out.println("achei");
+        }catch (NoSuchElementException e){
+            System.out.println("não achei");
+        }
+        navegador.quit();
 
-        navegador.findElement(By.id("sw_clx")).click();
+
 
         //navegador.findElement(By.id("bnp_btn_accept")).click();
 
