@@ -3,8 +3,12 @@ package br.com.tiago.projetoRewards.microrewards.edge;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.Collections;
@@ -20,7 +24,7 @@ public class EdgeConfig {
         options.setExperimentalOption("useAutomationExtension", false);
 
         options.addArguments(
-                "user-agent=Mozilla/5.0 " +
+                        "user-agent=Mozilla/5.0 " +
                         "(Windows NT 10.0; Win64; x64)" +
                         " AppleWebKit/537.36" +
                         " (KHTML, like Gecko) " +
@@ -30,11 +34,14 @@ public class EdgeConfig {
 
         WebDriver navegador = new EdgeDriver(options);
         WebDriverManager.edgedriver().setup();
-        navegador.manage().timeouts().implicitlyWait(Duration.ofSeconds(6));
 
-        navegador.get("https://www.google.com/");
-        //navegador.findElement(By.className("gb_1")).click();
+        navegador.get("https://www.bing.com/?cc=br");
 
+        WebDriverWait wait = new WebDriverWait(navegador, Duration.ofSeconds(10));
+        WebElement botao = wait.until(ExpectedConditions.elementToBeClickable(By.id("bnp_btn_accept")));
+
+        System.out.println("Achei o botão");
+        botao.click();
 
     }
 
