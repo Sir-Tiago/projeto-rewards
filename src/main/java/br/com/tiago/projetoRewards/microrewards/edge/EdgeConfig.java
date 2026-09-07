@@ -6,14 +6,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.time.Duration;
 import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class EdgeConfig {
+
+    ScheduledExecutorService agendador = Executors.newScheduledThreadPool(1);
 
     public void configAutoSerchEdge(){
 
@@ -39,9 +46,33 @@ public class EdgeConfig {
 
         WebDriverWait wait = new WebDriverWait(navegador, Duration.ofSeconds(10));
         WebElement botao = wait.until(ExpectedConditions.elementToBeClickable(By.id("bnp_btn_accept")));
-
-        System.out.println("Achei o botão");
         botao.click();
+
+        InputStream input = getClass()
+                .getClassLoader()
+                .getResourceAsStream("RandomWords");
+
+        //list with random strings for a search
+        //you can find in directory resources
+
+        List<String> serch = new BufferedReader
+                (new InputStreamReader(input)).lines().toList();
+
+        //loop for the serch
+
+        for (int i = 0; i<10; i++ ){
+
+            long timeKeyRandom = ThreadLocalRandom.current().nextLong(214, 352);
+
+            navegador.findElement(By.id("ab_form_q")).sendKeys();
+            
+        }
+
+
+
+
+
+
 
     }
 
