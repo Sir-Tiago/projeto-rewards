@@ -24,6 +24,9 @@ public class EdgeConfig {
 
     public void configAutoSerchEdge(){
 
+
+        //script for avoid the bot
+        //I don't know how this exactly works, I picked it up somewhere
         EdgeOptions options = new EdgeOptions();
         options.addArguments("--disable-blink-features=AutomationControlled");
 
@@ -54,19 +57,32 @@ public class EdgeConfig {
 
         //list with random strings for a search
         //you can find in directory resources
+        List<String> search = new BufferedReader(new InputStreamReader(input)).lines().toList();
 
-        List<String> serch = new BufferedReader
-                (new InputStreamReader(input)).lines().toList();
+        //loop for the search
+        for (String pesquisa : search) {
 
-        //loop for the serch
+            for (char caractere : pesquisa.toCharArray()){
 
-        for (int i = 0; i<10; i++ ){
+                long timeKeyRandom = ThreadLocalRandom.current().nextLong(214, 352);
 
-            long timeKeyRandom = ThreadLocalRandom.current().nextLong(214, 352);
+                try {
+                    navegador.findElement(By.id("ab_form_q")).sendKeys(String.valueOf(caractere));
+                    Thread.sleep(timeKeyRandom);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    System.out.println("Ocorreu um erro na pausa do script.");
+                }
 
-            navegador.findElement(By.id("ab_form_q")).sendKeys();
-            
+            }
+
         }
+
+
+
+
+            
+
 
 
 

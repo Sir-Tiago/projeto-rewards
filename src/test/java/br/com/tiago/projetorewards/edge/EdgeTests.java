@@ -8,7 +8,11 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.time.Duration;
+import java.util.List;
 
 @DisplayName("Teste Automatizados do Navegador Microsoft Edge")
 public class EdgeTests {
@@ -31,11 +35,22 @@ public class EdgeTests {
         }
         navegador.quit();
 
+    }
+    @Test
+    @DisplayName("Teste de Loop")
+    public void TestandoFuncionalidades(){
 
+        InputStream input = getClass()
+                .getClassLoader()
+                .getResourceAsStream("RandomWords ");
 
-        //navegador.findElement(By.id("bnp_btn_accept")).click();
+        List<String> serch = new BufferedReader(new InputStreamReader(input)).lines().toList();
 
+        for(String pesquisa :serch){
 
+            for(char character : pesquisa.toCharArray()){
 
+            }
+        }
     }
 }
