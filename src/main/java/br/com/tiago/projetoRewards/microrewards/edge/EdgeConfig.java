@@ -66,6 +66,7 @@ public class EdgeConfig {
 
             //to all caractere one at a time
             for (int i = 0; i < pesquisa.length(); i++){
+                char caractere = pesquisa.charAt(i);
 
                 //for EVERY action, she must include a pause
                 long timeKeyRandom = ThreadLocalRandom.current().nextLong(214, 352);
@@ -75,7 +76,6 @@ public class EdgeConfig {
                     Thread.sleep(timeKeyRandom);
                     if(i == pesquisa.length() - i){
                         navegador.findElement(By.id("sb_form_q")).sendKeys(Keys.ENTER);
-                        
                     }
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
