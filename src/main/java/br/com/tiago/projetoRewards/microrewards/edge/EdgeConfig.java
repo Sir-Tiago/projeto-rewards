@@ -2,6 +2,7 @@ package br.com.tiago.projetoRewards.microrewards.edge;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -18,6 +19,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
 
+
 public class EdgeConfig {
 
     ScheduledExecutorService agendador = Executors.newScheduledThreadPool(1);
@@ -25,7 +27,7 @@ public class EdgeConfig {
     public void configAutoSerchEdge(){
 
 
-        //script for avoid the bot
+        //script to avoid the bot
         //I don't know how this exactly works, I picked it up somewhere
         EdgeOptions options = new EdgeOptions();
         options.addArguments("--disable-blink-features=AutomationControlled");
@@ -41,7 +43,7 @@ public class EdgeConfig {
                         "Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0"
         );
 
-
+        //have to use options as a parameter
         WebDriver navegador = new EdgeDriver(options);
         WebDriverManager.edgedriver().setup();
 
@@ -62,13 +64,19 @@ public class EdgeConfig {
         //loop for the search
         for (String pesquisa : search) {
 
-            for (char caractere : pesquisa.toCharArray()){
+            //to all caractere one at a time
+            for (int i = 0; i < pesquisa.length(); i++){
 
+                //for EVERY action, she must include a pause
                 long timeKeyRandom = ThreadLocalRandom.current().nextLong(214, 352);
 
                 try {
-                    navegador.findElement(By.id("ab_form_q")).sendKeys(String.valueOf(caractere));
+                    navegador.findElement(By.id("sb_form_q")).sendKeys(String.valueOf(caractere));
                     Thread.sleep(timeKeyRandom);
+                    if(i == pesquisa.length() - i){
+                        navegador.findElement(By.id("sb_form_q")).sendKeys(Keys.ENTER);
+                        
+                    }
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     System.out.println("Ocorreu um erro na pausa do script.");
